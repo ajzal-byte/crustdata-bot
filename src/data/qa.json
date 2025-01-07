@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What is Crustdata?",
+    "answer": "Crustdata is a data analytics platform that provides APIs for accessing and analyzing large datasets."
+  },
+  {
+    "question": "How do I authenticate with Crustdata's API?",
+    "answer": "To authenticate with Crustdata's API, you need to use an API key. You can obtain an API key by signing up for a Crustdata account and generating a key in your dashboard."
+  },
+  {
+    "question": "What data formats does Crustdata support?",
+    "answer": "Crustdata supports various data formats including JSON, CSV, and XML. You can specify the desired format in your API request."
+  },
+  {
+    "question": "Is there a rate limit for API calls?",
+    "answer": "Yes, Crustdata has rate limits depending on your subscription plan. Basic plans typically have a limit of 1000 requests per day, while higher-tier plans offer increased limits."
+  },
+  {
+    "question": "How can I handle errors in API responses?",
+    "answer": "Crustdata API uses standard HTTP status codes. You should check the status code of each response. Additionally, error messages are included in the response body for more detailed information."
+  }
+]
