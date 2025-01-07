@@ -5,7 +5,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import { ThemeProvider, useTheme } from "@/contexts/ThemeContext";
 
 function Home() {
-  const { theme } = useTheme();
+  const { theme, currentFunTheme } = useTheme();
 
   return (
     <div
@@ -13,7 +13,7 @@ function Home() {
         theme === "dark"
           ? "bg-gray-900 text-white"
           : theme === "fun"
-          ? "bg-gradient-to-r from-pink-300 to-purple-400"
+          ? `bg-gradient-to-r ${currentFunTheme.background} ${currentFunTheme.text}`
           : "bg-gray-100 text-gray-900"
       }`}
     >
@@ -22,7 +22,7 @@ function Home() {
           theme === "dark"
             ? "bg-gray-800"
             : theme === "fun"
-            ? "bg-gradient-to-r from-pink-400 to-purple-500"
+            ? `bg-gradient-to-r ${currentFunTheme.primary}`
             : "bg-white"
         }`}
       >
@@ -47,7 +47,7 @@ function Home() {
             theme === "dark"
               ? "bg-gray-800"
               : theme === "fun"
-              ? "bg-gradient-to-r from-pink-200 to-purple-300"
+              ? `bg-gradient-to-r ${currentFunTheme.background} bg-opacity-50`
               : "bg-white"
           }`}
         >

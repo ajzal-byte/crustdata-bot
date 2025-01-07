@@ -1,10 +1,10 @@
 "use client";
 
-import { useTheme } from "@/contexts/ThemeContext";
+import { useTheme } from "../contexts/ThemeContext";
 import { Sun, Moon, Palette } from "lucide-react";
 
 export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, currentFunTheme } = useTheme();
 
   return (
     <div className="flex space-x-2">
@@ -31,7 +31,9 @@ export default function ThemeToggle() {
       <button
         onClick={() => setTheme("fun")}
         className={`p-2 rounded-full ${
-          theme === "fun" ? "bg-purple-400" : "bg-gray-200"
+          theme === "fun"
+            ? `bg-gradient-to-r ${currentFunTheme.primary}`
+            : "bg-gray-200"
         }`}
         aria-label="Fun mode"
         title="Fun mode"
