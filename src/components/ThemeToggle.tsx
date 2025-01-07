@@ -14,6 +14,7 @@ export default function ThemeToggle() {
           theme === "light" ? "bg-yellow-200" : "bg-gray-200"
         }`}
         aria-label="Light mode"
+        title="Light mode"
       >
         <Sun size={20} />
       </button>
@@ -23,6 +24,7 @@ export default function ThemeToggle() {
           theme === "dark" ? "bg-gray-600" : "bg-gray-200"
         }`}
         aria-label="Dark mode"
+        title="Dark mode"
       >
         <Moon size={20} />
       </button>
@@ -32,6 +34,7 @@ export default function ThemeToggle() {
           theme === "fun" ? "bg-purple-400" : "bg-gray-200"
         }`}
         aria-label="Fun mode"
+        title="Fun mode"
       >
         <Palette size={20} />
       </button>
