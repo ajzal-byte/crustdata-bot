@@ -1,22 +1,18 @@
 [
   {
-    "question": "What is Crustdata?",
-    "answer": "Crustdata is a data analytics platform that provides APIs for accessing and analyzing large datasets."
+    "question": "How do I search for people given their current title, current company, and location?",
+    "answer": "You can use the api.crustdata.com/screener/person/search endpoint. Here is an example curl request to find people with title 'engineer' at OpenAI in San Francisco:\n\ncurl --location 'https://api.crustdata.com/screener/person/search' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Token $token' \\\n--data '{\n    \"filters\": [\n        {\"filter_type\": \"CURRENT_COMPANY\", \"type\": \"in\", \"value\": [\"openai.com\"]},\n        {\"filter_type\": \"CURRENT_TITLE\", \"type\": \"in\", \"value\": [\"engineer\"]},\n        {\"filter_type\": \"REGION\", \"type\": \"in\", \"value\": [\"San Francisco, California, United States\"]}\n    ],\n    \"page\": 1\n}'"
   },
   {
-    "question": "How do I authenticate with Crustdata's API?",
-    "answer": "To authenticate with Crustdata's API, you need to use an API key. You can obtain an API key by signing up for a Crustdata account and generating a key in your dashboard."
+    "question": "Is there a standard you're using for the region values?",
+    "answer": "Yes, there is a specific list of regions. You can find the list here: https://crustdata-docs-region-json.s3.us-east-2.amazonaws.com/updated_regions.json. Try to match your region values from this list before making an API call."
   },
   {
-    "question": "What data formats does Crustdata support?",
-    "answer": "Crustdata supports various data formats including JSON, CSV, and XML. You can specify the desired format in your API request."
+    "question": "I tried using the screener/person/search API to compare against previous values this weekend. I am blocked on the filter values. It seems like there's a strict set of values for something like a region. Because of that if I pass in something that doesn't fully conform to the list of enums you support for that filter value, the API call fails. The location fields for us are not normalized so I can't make the calls.",
+    "answer": "You need to normalize your region values to match the accepted list of enums. Refer to the list of supported regions here: https://crustdata-docs-region-json.s3.us-east-2.amazonaws.com/updated_regions.json."
   },
   {
-    "question": "Is there a rate limit for API calls?",
-    "answer": "Yes, Crustdata has rate limits depending on your subscription plan. Basic plans typically have a limit of 1000 requests per day, while higher-tier plans offer increased limits."
-  },
-  {
-    "question": "How can I handle errors in API responses?",
-    "answer": "Crustdata API uses standard HTTP status codes. You should check the status code of each response. Additionally, error messages are included in the response body for more detailed information."
+    "question": "I tried search/enrichment by email but for many entities we have @gmails rather than business emails. Results are not the best.",
+    "answer": "The search/enrichment API works best with business emails. Using generic email domains like Gmail may lead to suboptimal results."
   }
 ]

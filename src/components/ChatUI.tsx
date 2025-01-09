@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "../contexts/ThemeContext";
 
 type Message = {
@@ -11,6 +11,7 @@ type Message = {
 export default function ChatUI() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { theme, currentFunTheme } = useTheme();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,6 +21,7 @@ export default function ChatUI() {
     const userMessage: Message = { text: input, isUser: true };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
+    setIsLoading(true);
 
     try {
       const response = await fetch("/api/getAnswer", {
@@ -31,6 +33,10 @@ export default function ChatUI() {
       if (!response.ok) throw new Error("Failed to get answer");
 
       const data = await response.json();
+
+      // Artificial delay for loading indicator
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
       const botMessage: Message = { text: data.answer, isUser: false };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
@@ -40,6 +46,8 @@ export default function ChatUI() {
         isUser: false,
       };
       setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -59,9 +67,32 @@ export default function ChatUI() {
                 : "bg-gray-200 text-gray-800"
             }`}
           >
-            {message.text}
+            <pre className="whitespace-pre-wrap font-sans">{message.text}</pre>
           </div>
         ))}
+        {isLoading && (
+          <div
+            className={`max-w-[80%] p-3 rounded-lg ${
+              theme === "fun"
+                ? `bg-gradient-to-r ${currentFunTheme.primary} text-white`
+                : theme === "dark"
+                ? "bg-gray-700 text-white"
+                : "bg-gray-200 text-gray-800"
+            }`}
+          >
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 rounded-full animate-bounce bg-current"></div>
+              <div
+                className="w-2 h-2 rounded-full animate-bounce bg-current"
+                style={{ animationDelay: "0.2s" }}
+              ></div>
+              <div
+                className="w-2 h-2 rounded-full animate-bounce bg-current"
+                style={{ animationDelay: "0.4s" }}
+              ></div>
+            </div>
+          </div>
+        )}
       </div>
       <form
         onSubmit={handleSubmit}
@@ -83,13 +114,14 @@ export default function ChatUI() {
           />
           <button
             type="submit"
+            disabled={isLoading}
             className={`px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
               theme === "fun"
                 ? `bg-gradient-to-r ${currentFunTheme.primary} text-white hover:opacity-90`
                 : theme === "dark"
                 ? "bg-blue-600 text-white hover:bg-blue-700"
                 : "bg-blue-500 text-white hover:bg-blue-600"
-            }`}
+            } ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             Send
           </button>
